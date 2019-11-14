@@ -35,6 +35,7 @@ function sleep(ms) {
 
 async function removeScroll() {
 	window.removeEventListener('wheel', removeScroll);
+	window.removeEventListener('touchmove', removeScroll);
 	let scroll = document.getElementById('scroll');
 	scroll.classList.add('fade');
 	await sleep(1000);
@@ -52,6 +53,7 @@ async function main() {
 	spawnBirb(Math.floor(Math.random() * 5 + 40));
 	await sleep (2000);
 	window.addEventListener('wheel', removeScroll);
+	window.addEventListener('touchmove', removeScroll);
 }
 
 document.addEventListener('DOMContentLoaded', main);
