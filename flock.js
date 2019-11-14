@@ -8,8 +8,8 @@ async function spawnBirb(top = Math.floor(Math.random() * 200 - 50)) {
 	
 	b.style.setProperty('--top', top + 'vh');
 	b.style.setProperty('--left', -Math.floor(Math.random() * 100) + 'px');
-	b.style.setProperty('--end', Math.floor(Math.random() * 500 - 25) + 'px');
-	b.style.setProperty('--speed', Math.random() + 2 + 's');
+	b.style.setProperty('--end', Math.floor(Math.random() * 800 - 600) + 'px');
+	b.style.setProperty('--speed', Math.random() * 2 + 6 + 's');
 	
 	flock.append(b);
 	

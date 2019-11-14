@@ -8,7 +8,7 @@ body {
 	align-items: center;
 	font-family: 'Kaushan Script', monospace;
 	font-size: 3em;
-	color: #999;
+	color: #b19493;
 }
 
 .birb {
@@ -44,6 +44,6 @@ body {
 		transform: translateX(0vw) translateY(0px);
 	}
 	to {
-		transform: translateX(calc(100vw + 36em * 2)) translateY(var(--end));
+		transform: translateX(calc(100vw + 2000px * 2)) translateY(var(--end));
 	}
 }
