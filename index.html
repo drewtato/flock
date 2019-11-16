@@ -39,7 +39,7 @@ async function removeScroll() {
 	flock.removeEventListener('wheel', removeScroll);
 	flock.removeEventListener('touchmove', removeScroll);
 	let scroll = document.getElementById('scroll');
-	scroll.classList.add('fade');
+	scroll.style.setProperty('opacity', 0);
 	scroll.addEventListener('transitionend', () => document.body.removeChild(scroll));
 }
 
@@ -72,6 +72,7 @@ async function main() {
 	spawnBirb(Math.floor(Math.random() * 5 + 30));
 	await sleep(30);
 	spawnBirb(Math.floor(Math.random() * 5 + 40));
+	document.getElementById('scroll').removeAttribute('style');
 	await sleep (2000);
 	flock.addEventListener('wheel', removeScroll);
 	flock.addEventListener('touchmove', removeScroll);
@@ -101,12 +102,6 @@ a {
 
 a:hover {
 	color: #000;
-}
-
-#scroll {
-	font-family: 'Kaushan Script', script;
-	font-size: 3em;
-	color: #b19493;
 }
 
 .birb {
@@ -139,17 +134,19 @@ a:hover {
 	}
 }
 
+#scroll {
+	font-family: 'Kaushan Script', cursive;
+	font-size: 3em;
+	color: #b19493;
+	transition: opacity 0.6s linear;
+	opacity: 1;
+}
+
 #flock {
 	position: absolute;
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
-}
-
-.fade {
-	transition-duration: 1s;
-	transition-property: opacity;
-	opacity: 0;
 }
 
 #info {
@@ -171,8 +168,9 @@ a:hover {
 	<link href="https://fonts.googleapis.com/css?family=Courgette|Kaushan+Script&display=swap" rel="stylesheet"> 
 </head>
 <body>
-	<div id="scroll">Scroll</div>
+	<div id="scroll" style="opacity: 0;">Scroll</div>
 	<div id="flock">
+		<!-- preload buncho.png -->
 		<div class="birb"></div>
 	</div>
 	<div id="info" hidden style="opacity: 0;">
