@@ -134,10 +134,11 @@ a:hover {
 	}
 }
 
-#scroll {
+h1 {
 	font-family: 'Kaushan Script', cursive;
 	font-size: 3em;
-	color: #b19493;
+	font-weight: inherit;
+	color: #9b807f;
 	transition: opacity 0.6s linear;
 	opacity: 1;
 }
@@ -168,12 +169,13 @@ a:hover {
 	<link href="https://fonts.googleapis.com/css?family=Courgette|Kaushan+Script&display=swap" rel="stylesheet"> 
 </head>
 <body>
-	<div id="scroll" style="opacity: 0;">Scroll</div>
+	<h1 id="scroll" style="opacity: 0;">Scroll</h1>
 	<div id="flock">
 		<!-- preload buncho.png -->
 		<div class="birb"></div>
 	</div>
 	<div id="info" hidden style="opacity: 0;">
+		<h1>flock</h1>
 		<p>An evening project providing infinite bunchos.</p>
 		<p>Illustration by <a href="https://www.jeanyoung.me/">Jean</a>.</p>
 		<p>Rest by <a href="https://andrewirino.com">me</a>.</p>
