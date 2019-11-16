@@ -5,12 +5,181 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>flock 🕊</title>
-	<script src="flock.js"></script>
-	<link rel="stylesheet" href="style.css">
-	<link href="https://fonts.googleapis.com/css?family=Kaushan+Script&display=swap" rel="stylesheet"> 
+	<script>
+
+let birb = document.createElement('div');
+birb.classList.add(['birb']);
+
+async function spawnBirb(top = Math.floor(Math.random() * 200 - 50)) {
+	let flock = document.getElementById('flock');
+	let b = birb.cloneNode(true);
+	
+	b.style.setProperty('--top', top + 'vh');
+	b.style.setProperty('--left', -Math.floor(Math.random() * 100) + 'px');
+	b.style.setProperty('--end', Math.floor(Math.random() * 800 - 600) + 'px');
+	b.style.setProperty('--speed', Math.random() * 2 + 6 + 's');
+	
+	let flaps = Math.random() * 200 + 500;
+	b.style.setProperty('--flap', flaps + 'ms');
+	b.style.setProperty('--delay', -Math.random() * flaps + 'ms');
+	
+	flock.append(b);
+	
+	b.addEventListener('animationend', () => flock.removeChild(b));
+}
+
+function sleep(ms) {
+	return new Promise(resolve => {
+		setTimeout(resolve, ms);
+	}).then(() => ms);
+}
+
+async function removeScroll() {
+	let flock = document.getElementById('flock');
+	flock.removeEventListener('wheel', removeScroll);
+	flock.removeEventListener('touchmove', removeScroll);
+	let scroll = document.getElementById('scroll');
+	scroll.classList.add('fade');
+	scroll.addEventListener('transitionend', () => document.body.removeChild(scroll));
+}
+
+async function toggleInfo() {
+	let info = document.getElementById('info');
+	if (info.hidden) {
+		info.hidden = false;
+		window.requestAnimationFrame(() => {
+			window.requestAnimationFrame(() => {
+				info.style.setProperty('opacity', 0.9);
+			});
+		});
+	} else {
+		info.style.setProperty('opacity', 0);
+		info.addEventListener('transitionend', function hide() {
+			info.hidden = true;
+			info.removeEventListener('transitionend', hide);
+		});
+	}
+}
+
+async function main() {
+	let flock = document.getElementById('flock');
+	flock.addEventListener('wheel', () => spawnBirb());
+	flock.addEventListener('touchmove', () => spawnBirb());
+	flock.addEventListener('click', toggleInfo);
+	await sleep(1000);
+	spawnBirb(Math.floor(Math.random() * 5 + 25));
+	await sleep(50);
+	spawnBirb(Math.floor(Math.random() * 5 + 30));
+	await sleep(30);
+	spawnBirb(Math.floor(Math.random() * 5 + 40));
+	await sleep (2000);
+	flock.addEventListener('wheel', removeScroll);
+	flock.addEventListener('touchmove', removeScroll);
+}
+
+window.addEventListener('load', main);
+
+	</script>
+	<style>
+
+body {
+	height: 100vh;
+	width: 100vw;
+	margin: 0;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Courgette', cursive;
+	font-size: 1.4em;
+	color: #5c4140;
+}
+
+a {
+	color: inherit;
+}
+
+a:hover {
+	color: #000;
+}
+
+#scroll {
+	font-family: 'Kaushan Script', script;
+	font-size: 3em;
+	color: #b19493;
+}
+
+.birb {
+	background-image: url('img/buncho.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+	
+	height: 250px;
+	width: 250px;
+	margin-left: -250px;
+	position: absolute;
+	top: var(--top);
+	left: var(--left);
+	
+	animation: 
+		fly var(--speed) linear forwards,
+		flap var(--flap) var(--delay) steps(6) infinite
+}
+
+@keyframes flap {
+	100% { background-position: calc(-250px * 6); }
+}
+
+@keyframes fly {
+	from {
+		transform: translateX(0vw) translateY(0px);
+	}
+	to {
+		transform: translateX(calc(100vw + 2000px * 2)) translateY(var(--end));
+	}
+}
+
+#flock {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+.fade {
+	transition-duration: 1s;
+	transition-property: opacity;
+	opacity: 0;
+}
+
+#info {
+	transition: opacity 0.6s linear;
+	position: absolute;
+	background: #fff;
+	margin: 1em;
+	border: 2px solid #5c4140;
+	border-radius: 1em;
+	max-width: 42em;
+	text-align: center;
+}
+
+#info>p {
+	margin: 1em;
+}
+
+	</style>
+	<link href="https://fonts.googleapis.com/css?family=Courgette|Kaushan+Script&display=swap" rel="stylesheet"> 
 </head>
 <body>
 	<div id="scroll">Scroll</div>
-	<div id="flock"></div>
+	<div id="flock">
+		<div class="birb"></div>
+	</div>
+	<div id="info" hidden style="opacity: 0;">
+		<p>An evening project providing infinite bunchos.</p>
+		<p>Illustration by <a href="https://www.jeanyoung.me/">Jean</a>.</p>
+		<p>Rest by <a href="https://andrewirino.com">me</a>.</p>
+		<p><a href="https://github.com/drewtato/flock">Source</a>.</p>
+	</div>
 </body>
 </html>
