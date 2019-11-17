@@ -19,7 +19,7 @@ async function spawnBirb(top = Math.floor(Math.random() * 200 - 50)) {
 	b.style.setProperty('--end', Math.floor(Math.random() * 800 - 600) + 'px');
 	b.style.setProperty('--speed', Math.random() * 2 + 6 + 's');
 	
-	let flaps = Math.random() * 200 + 500;
+	let flaps = Math.random() * 100 + 400;
 	b.style.setProperty('--flap', flaps + 'ms');
 	b.style.setProperty('--delay', -Math.random() * flaps + 'ms');
 	
@@ -49,7 +49,7 @@ async function toggleInfo() {
 		info.hidden = false;
 		window.requestAnimationFrame(() => {
 			window.requestAnimationFrame(() => {
-				info.style.setProperty('opacity', 0.9);
+				info.style.setProperty('opacity', 1);
 			});
 		});
 	} else {
@@ -94,6 +94,15 @@ body {
 	font-family: 'Courgette', cursive;
 	font-size: 1.4em;
 	color: #5c4140;
+	background-image: url('img/clouds2.jpg');
+	background-size: cover;
+	background-position: center;
+}
+
+@media screen and (max-aspect-ratio: 1/1) {
+	body {
+		background-image: url('img/clouds3.jpg');
+	}
 }
 
 a {
@@ -118,11 +127,11 @@ a:hover {
 	
 	animation: 
 		fly var(--speed) linear forwards,
-		flap var(--flap) var(--delay) steps(6) infinite
+		flap var(--flap) var(--delay) steps(4) infinite
 }
 
 @keyframes flap {
-	100% { background-position: calc(-250px * 6); }
+	100% { background-position: calc(-250px * 4); }
 }
 
 @keyframes fly {
@@ -138,7 +147,7 @@ h1 {
 	font-family: 'Kaushan Script', cursive;
 	font-size: 3em;
 	font-weight: inherit;
-	color: #9b807f;
+	color: #814340;
 	transition: opacity 0.6s linear;
 	opacity: 1;
 }
@@ -153,9 +162,9 @@ h1 {
 #info {
 	transition: opacity 0.6s linear;
 	position: absolute;
-	background: #fff;
+	background: rgba(250, 231, 162, 0.8);
 	margin: 1em;
-	border: 2px solid #5c4140;
+	border: 2px solid #321e33;
 	border-radius: 1em;
 	max-width: 42em;
 	text-align: center;
