@@ -6,4 +6,4 @@ Illustration by [Jean](https://www.jeanyoung.me/).
 
 Rest by me.
 
-![flock](img/background.png)
+![flock](img/background.jpg)
