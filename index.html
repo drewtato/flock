@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns#">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,26 +19,97 @@
 	<meta name="twitter:image:alt" content="many bunchos flying in front of clouds">
 	<script>
 
+// Cookie framework by Mozilla
+// https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie/Simple_document.cookie_framework
+// Licensed under GPL v3 or later http://www.gnu.org/licenses/gpl-3.0-standalone.html
+var docCookies = {
+	getItem: function(sKey) {
+		if (!sKey) {
+			return null;
+		}
+		return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
+	},
+	setItem: function(sKey, sValue, vEnd, sPath, sDomain, bSecure) {
+		if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) {
+			return false;
+		}
+		var sExpires = "";
+		if (vEnd) {
+			switch (vEnd.constructor) {
+				case Number:
+					sExpires = vEnd === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + vEnd;
+					break;
+				case String:
+					sExpires = "; expires=" + vEnd;
+					break;
+				case Date:
+					sExpires = "; expires=" + vEnd.toUTCString();
+					break;
+			}
+		}
+		document.cookie = encodeURIComponent(sKey) + "=" + encodeURIComponent(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
+		return true;
+	},
+	removeItem: function(sKey, sPath, sDomain) {
+		if (!this.hasItem(sKey)) {
+			return false;
+		}
+		document.cookie = encodeURIComponent(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "");
+		return true;
+	},
+	hasItem: function(sKey) {
+		if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) {
+			return false;
+		}
+		return (new RegExp("(?:^|;\\s*)" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
+	},
+	keys: function() {
+		var aKeys = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, "").split(/\s*(?:\=[^;]*)?;\s*/);
+		for (var nLen = aKeys.length, nIdx = 0; nIdx < nLen; nIdx++) {
+			aKeys[nIdx] = decodeURIComponent(aKeys[nIdx]);
+		}
+		return aKeys;
+	}
+};
+
 let birb = document.createElement('div');
 birb.classList.add(['birb']);
 let counter = 0;
+let queued = 0;
 
-async function spawnBirb(top = Math.floor(Math.random() * 140 - 20)) {
+function spawnBirbHandler() {
+	// A dynamic throttle
+	// makes floor(sqrt(n)) birds where n is number of wheel/touchmove events since last frame.
+	if (queued == 0) {
+		queued += 1
+		window.requestAnimationFrame(() => {
+			let normalizedQueued = Math.floor(Math.sqrt(queued));
+			queued = 0;
+			addBuncho(normalizedQueued);
+			while (normalizedQueued-- > 0) {
+				spawnBirb();
+			}
+		});
+	} else {
+		queued += 1;
+	}
+}
+
+function spawnBirb(top = Math.floor(Math.random() * 140 - 20)) {
 	let flock = document.getElementById('flock');
 	let b = birb.cloneNode(true);
-	
+
 	b.style.setProperty('--top', top + 'vh');
 	b.style.setProperty('--left', -Math.floor(Math.random() * 100) + 'px');
 	b.style.setProperty('--end', Math.floor(Math.random() * 800 - 600) + 'px');
 	b.style.setProperty('--speed', Math.random() * 2 + 6 + 's');
-	
+
 	let flaps = Math.random() * 100 + 400;
 	b.style.setProperty('--flap', flaps + 'ms');
 	b.style.setProperty('--delay', -Math.random() * flaps + 'ms');
-	
+
 	flock.append(b);
-	addBuncho();
-	
+
 	b.addEventListener('animationend', () => flock.removeChild(b));
 }
 
@@ -47,7 +119,7 @@ function sleep(ms) {
 	}).then(() => ms);
 }
 
-async function removeScroll() {
+function removeScroll() {
 	let flock = document.getElementById('flock');
 	flock.removeEventListener('wheel', removeScroll);
 	flock.removeEventListener('touchmove', removeScroll);
@@ -56,13 +128,13 @@ async function removeScroll() {
 	scroll.addEventListener('transitionend', () => document.body.removeChild(scroll));
 }
 
-async function toggleInfo() {
+function toggleInfo() {
 	let info = document.getElementById('info');
 	if (info.classList.contains('justCount')) {
 		info.classList.remove('justCount');
 		return;
 	}
-	
+
 	if (info.hidden) {
 		info.hidden = false;
 		window.requestAnimationFrame(() => {
@@ -79,10 +151,16 @@ async function toggleInfo() {
 	}
 }
 
-function addBuncho() {
-	counter += 1;
+function addBuncho(num) {
+	counter += num;
 	let countElem = document.getElementById('counter');
 	countElem.innerHTML = '<strong>' + counter + '</strong> bunchos have flown by.'
+	docCookies.setItem('bunchos', String(counter), Infinity);
+}
+
+function clearBuncho() {
+	counter = 0;
+	addBuncho(0);
 }
 
 function togglePinCount() {
@@ -90,21 +168,29 @@ function togglePinCount() {
 }
 
 async function main() {
+	let saved = Number(docCookies.getItem('bunchos'));
+	if (saved > counter) {
+		counter = saved;
+	}
+
 	let flock = document.getElementById('flock');
-	flock.addEventListener('wheel', () => spawnBirb());
-	flock.addEventListener('touchmove', () => spawnBirb());
+	flock.addEventListener('wheel', spawnBirbHandler);
+	flock.addEventListener('touchmove', spawnBirbHandler);
 	flock.addEventListener('click', toggleInfo);
-	
+
 	await sleep(1000);
 	spawnBirb(Math.floor(Math.random() * 5 + 25));
+	addBuncho(1);
 	await sleep(50);
 	spawnBirb(Math.floor(Math.random() * 5 + 30));
+	addBuncho(1);
 	await sleep(30);
 	spawnBirb(Math.floor(Math.random() * 5 + 40));
-	
+	addBuncho(1);
+
 	document.getElementById('scroll').removeAttribute('style');
-	await sleep (2000);
-	
+	await sleep(2000);
+
 	flock.addEventListener('wheel', removeScroll);
 	flock.addEventListener('touchmove', removeScroll);
 }
@@ -148,27 +234,30 @@ a:hover {
 	background-image: url('img/buncho.png');
 	background-size: cover;
 	background-repeat: no-repeat;
-	
+
 	height: 250px;
 	width: 250px;
 	margin-left: -250px;
 	position: absolute;
 	top: var(--top);
 	left: var(--left);
-	
-	animation: 
+
+	animation:
 		fly var(--speed) linear forwards,
 		flap var(--flap) var(--delay) steps(4) infinite
 }
 
 @keyframes flap {
-	100% { background-position: calc(-250px * 4); }
+	100% {
+		background-position: calc(-250px * 4);
+	}
 }
 
 @keyframes fly {
 	from {
 		transform: translateX(0vw) translateY(0px);
 	}
+
 	to {
 		transform: translateX(calc(100vw + 2000px * 2)) translateY(var(--end));
 	}
@@ -210,7 +299,12 @@ h1 {
 	font-feature-settings: "tnum";
 }
 
-#info.justCount #details, #info.justCount #countButton {
+.small {
+	font-size: 0.6em;
+}
+
+#info.justCount .details,
+#info.justCount #countButton {
 	display: none;
 }
 
@@ -219,8 +313,9 @@ h1 {
 }
 
 	</style>
-	<link href="https://fonts.googleapis.com/css?family=Courgette|Kaushan+Script&display=swap" rel="stylesheet"> 
+	<link href="https://fonts.googleapis.com/css?family=Courgette|Kaushan+Script&display=swap" rel="stylesheet">
 </head>
+
 <body>
 	<h1 id="scroll" style="opacity: 0;">Scroll</h1>
 	<div id="flock">
@@ -228,7 +323,7 @@ h1 {
 		<div class="birb"></div>
 	</div>
 	<div id="info" hidden style="opacity: 0;">
-		<div id="details">
+		<div class="details">
 			<h1>flock</h1>
 			<p>An evening project providing infinite bunchos.</p>
 			<p>Illustration by <a href="https://www.jeanyoung.me/">Jean</a>.</p>
@@ -240,6 +335,10 @@ h1 {
 			<br>
 			<a href="#" id="countButton" onclick="togglePinCount()">always show</a>
 		</p>
+		<div class="details">
+			<a href="#" class="small" onclick="clearBuncho()">clear counter</a>
+		</div>
 	</div>
 </body>
+
 </html>
