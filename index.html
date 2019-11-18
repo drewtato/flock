@@ -20,6 +20,7 @@
 
 let birb = document.createElement('div');
 birb.classList.add(['birb']);
+let counter = 0;
 
 async function spawnBirb(top = Math.floor(Math.random() * 200 - 50)) {
 	let flock = document.getElementById('flock');
@@ -35,6 +36,7 @@ async function spawnBirb(top = Math.floor(Math.random() * 200 - 50)) {
 	b.style.setProperty('--delay', -Math.random() * flaps + 'ms');
 	
 	flock.append(b);
+	addBuncho();
 	
 	b.addEventListener('animationend', () => flock.removeChild(b));
 }
@@ -56,6 +58,11 @@ async function removeScroll() {
 
 async function toggleInfo() {
 	let info = document.getElementById('info');
+	if (info.classList.contains('justCount')) {
+		info.classList.remove('justCount');
+		return;
+	}
+	
 	if (info.hidden) {
 		info.hidden = false;
 		window.requestAnimationFrame(() => {
@@ -72,19 +79,32 @@ async function toggleInfo() {
 	}
 }
 
+function addBuncho() {
+	counter += 1;
+	let countElem = document.getElementById('counter');
+	countElem.innerHTML = '<strong>' + counter + '</strong> bunchos have flown by.'
+}
+
+function togglePinCount() {
+	document.getElementById('info').classList.add('justCount');
+}
+
 async function main() {
 	let flock = document.getElementById('flock');
 	flock.addEventListener('wheel', () => spawnBirb());
 	flock.addEventListener('touchmove', () => spawnBirb());
 	flock.addEventListener('click', toggleInfo);
+	
 	await sleep(1000);
 	spawnBirb(Math.floor(Math.random() * 5 + 25));
 	await sleep(50);
 	spawnBirb(Math.floor(Math.random() * 5 + 30));
 	await sleep(30);
 	spawnBirb(Math.floor(Math.random() * 5 + 40));
+	
 	document.getElementById('scroll').removeAttribute('style');
 	await sleep (2000);
+	
 	flock.addEventListener('wheel', removeScroll);
 	flock.addEventListener('touchmove', removeScroll);
 }
@@ -181,8 +201,21 @@ h1 {
 	text-align: center;
 }
 
-#info>p {
+#info>* {
 	margin: 1em;
+}
+
+#counter {
+	/* Doesn't actually work in this font */
+	font-feature-settings: "tnum";
+}
+
+#info.justCount #details, #info.justCount #countButton {
+	display: none;
+}
+
+#info.justCount {
+	align-self: end;
 }
 
 	</style>
@@ -195,11 +228,18 @@ h1 {
 		<div class="birb"></div>
 	</div>
 	<div id="info" hidden style="opacity: 0;">
-		<h1>flock</h1>
-		<p>An evening project providing infinite bunchos.</p>
-		<p>Illustration by <a href="https://www.jeanyoung.me/">Jean</a>.</p>
-		<p>Rest by <a href="https://andrewirino.com">me</a>.</p>
-		<p><a href="https://github.com/drewtato/flock">Source</a>.</p>
+		<div id="details">
+			<h1>flock</h1>
+			<p>An evening project providing infinite bunchos.</p>
+			<p>Illustration by <a href="https://www.jeanyoung.me/">Jean</a>.</p>
+			<p>Rest by <a href="https://andrewirino.com">me</a>.</p>
+			<p><a href="https://github.com/drewtato/flock">Source</a>.</p>
+		</div>
+		<p>
+			<span id="counter"><strong>0</strong> bunchos have flown by.</span>
+			<br>
+			<a href="#" id="countButton" onclick="togglePinCount()">always show</a>
+		</p>
 	</div>
 </body>
 </html>
