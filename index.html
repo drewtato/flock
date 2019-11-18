@@ -116,7 +116,7 @@ function spawnBirb(top = Math.floor(Math.random() * 140 - 20)) {
 function sleep(ms) {
 	return new Promise(resolve => {
 		setTimeout(resolve, ms);
-	}).then(() => ms);
+	});
 }
 
 function removeScroll() {
@@ -283,10 +283,12 @@ h1 {
 	transition: opacity 0.6s linear;
 	position: absolute;
 	background: rgba(250, 231, 162, 0.8);
-	margin: 1em;
 	border: 2px solid #321e33;
 	border-radius: 1em;
+	margin: 1em;
 	max-width: 22em;
+	max-height: calc(100vh - 2em - 4px);
+	overflow: auto;
 	text-align: center;
 }
 
