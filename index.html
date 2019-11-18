@@ -154,7 +154,7 @@ function toggleInfo() {
 function addBuncho(num) {
 	counter += num;
 	let countElem = document.getElementById('counter');
-	countElem.innerHTML = '<strong>' + counter + '</strong> bunchos have flown by.'
+	countElem.innerHTML = '<strong>' + counter + '</strong> bunchos have flown&nbsp;by.'
 	docCookies.setItem('bunchos', String(counter), Infinity);
 }
 
@@ -327,13 +327,13 @@ h1 {
 	<div id="info" hidden style="opacity: 0;">
 		<div class="details">
 			<h1>flock</h1>
-			<p>An <del>evening</del> weekend project providing infinite <a href="https://en.wikipedia.org/wiki/Java_sparrow">bunchos</a>.</p>
+			<p>An <del>evening</del> weekend project providing infinite&nbsp;<a href="https://en.wikipedia.org/wiki/Java_sparrow">bunchos</a>.</p>
 			<p>Illustration by <a href="https://www.jeanyoung.me/">Jean</a>.</p>
 			<p>Rest by <a href="https://andrewirino.com">me</a>.</p>
 			<p><a href="https://github.com/drewtato/flock">Source</a>.</p>
 		</div>
 		<p>
-			<span id="counter"><strong>0</strong> bunchos have flown by.</span>
+			<span id="counter"><strong>0</strong> bunchos have flown&nbsp;by.</span>
 			<br>
 			<a href="#" id="countButton" onclick="togglePinCount()">always show</a>
 		</p>
