@@ -98,6 +98,9 @@ function spawnBirbHandler() {
 function spawnBirb(top = Math.floor(Math.random() * 140 - 20)) {
 	let flock = document.getElementById('flock');
 	let b = birb.cloneNode(true);
+	if (Math.random() > 0.75) {
+		b.classList.add('two');
+	}
 
 	b.style.setProperty('--top', top + 'vh');
 	b.style.setProperty('--left', -Math.floor(Math.random() * 100) + 'px');
@@ -154,7 +157,7 @@ function toggleInfo() {
 function addBuncho(num) {
 	counter += num;
 	let countElem = document.getElementById('counter');
-	countElem.innerHTML = '<strong>' + counter + '</strong> bunchos have flown&nbsp;by.'
+	countElem.innerHTML = String(counter);
 	docCookies.setItem('bunchos', String(counter), Infinity);
 }
 
@@ -247,6 +250,10 @@ a:hover {
 		flap var(--flap) var(--delay) steps(4) infinite
 }
 
+.birb.two {
+	background-image: url('img/buncho2.png');
+}
+
 @keyframes flap {
 	100% {
 		background-position: calc(-250px * 4);
@@ -299,6 +306,7 @@ h1 {
 #counter {
 	/* Doesn't actually work in this font */
 	font-feature-settings: "tnum";
+	font-weight: bold;
 }
 
 .small {
@@ -321,8 +329,9 @@ h1 {
 <body>
 	<h1 id="scroll" style="opacity: 0;">Scroll</h1>
 	<div id="flock">
-		<!-- preload buncho.png -->
+		<!-- preload buncho and buncho2 -->
 		<div class="birb"></div>
+		<div class="birb two"></div>
 	</div>
 	<div id="info" hidden style="opacity: 0;">
 		<div class="details">
@@ -333,7 +342,7 @@ h1 {
 			<p><a href="https://github.com/drewtato/flock">Source</a>.</p>
 		</div>
 		<p>
-			<span id="counter"><strong>0</strong> bunchos have flown&nbsp;by.</span>
+			<span id="counter">0</span> bunchos have flown&nbsp;by.
 			<br>
 			<a href="#" id="countButton" onclick="togglePinCount()">always show</a>
 		</p>
