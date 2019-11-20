@@ -353,11 +353,17 @@ h1 {
 	opacity: 1;
 }
 
+#scroll {
+	position: absolute;
+	z-index: 1;
+}
+
 #flock {
 	position: absolute;
 	height: 100vh;
 	width: 100vw;
 	overflow: hidden;
+	z-index: 2;
 }
 
 #info {
@@ -370,6 +376,7 @@ h1 {
 	max-height: calc(100vh - 2em - 4px);
 	overflow: auto;
 	text-align: center;
+	z-index: 3;
 }
 
 #info:not(.justCount) {
@@ -414,7 +421,6 @@ h1 {
 		<div class="birb"></div>
 		<div class="birb two"></div>
 	</div>
-	<!-- <div id="info" hidden style="opacity: 0;"> -->
 	<div id="info" hidden>
 		<div class="details">
 			<h1>flock</h1>
