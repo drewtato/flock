@@ -142,15 +142,23 @@ function removeScroll() {
 	let flock = id('flock');
 	flock.removeEventListener('wheel', removeScroll);
 	flock.removeEventListener('touchmove', removeScroll);
+	flock.removeEventListener('keydown', removeScrollKey);
 	let scroll = id('scroll');
 	scroll.prop('opacity', 0);
 	scroll.addEventListener('transitionend', () => document.body.removeChild(scroll));
+}
+function removeScrollKey(e) {
+	if (e.code.startsWith('Arrow')) {
+		removeScroll();
+	}
 }
 
 function toggleInfo() {
 	let info = id('info')
 	if (info.hidden) {
 		info.hidden = false;
+	} else {
+		id('flock').focus();
 	}
 	
 	// Transition doesn't work if opacity changes on the same frame as hidden = false
@@ -200,6 +208,12 @@ function checkPin() {
 	}
 }
 
+function inputKey(e, callback) {
+	if (e.code === 'Space' || e.code === 'Enter') {
+		callback();
+	}
+}
+
 async function main() {
 	let savedBunchos = docCookies.getItem('bunchos');
 	if (savedBunchos !== null) {
@@ -224,10 +238,25 @@ async function main() {
 	let flock = id('flock');
 	flock.addEventListener('wheel', spawnBirbHandler);
 	flock.addEventListener('touchmove', spawnBirbHandler);
+	flock.addEventListener('keydown', (e) => {
+		if (e.code.startsWith('Arrow')) {
+			spawnBirbHandler();
+		} else {
+			inputKey(e, toggleInfo);
+		}
+	});
 	flock.addEventListener('click', toggleInfo);
+	id('close').addEventListener('click', toggleInfo);
+	id('close').addEventListener('keydown', (e) => inputKey(e, toggleInfo));
 	id('info').addEventListener('transitionend', afterToggleInfo);
 	id('save').addEventListener('input', checkBunchoCookie);
 	id('pin').addEventListener('input', checkPin);
+	for (const l of document.querySelectorAll('input[type="checkbox"]+label')) {
+		l.addEventListener('keydown', (e) => inputKey(
+			e,
+			() => id(l.getAttribute('for')).click()
+		));
+	}
 
 	await sleep(1000);
 	spawnBirb(Math.floor(rand() * 5 + 25));
@@ -244,6 +273,7 @@ async function main() {
 
 	flock.addEventListener('wheel', removeScroll);
 	flock.addEventListener('touchmove', removeScroll);
+	flock.addEventListener('keydown', removeScrollKey);
 }
 
 window.addEventListener('load', main);
@@ -358,6 +388,10 @@ h1 {
 	z-index: 1;
 }
 
+#info.show ~ #scroll {
+	display: none;
+}
+
 #flock {
 	position: absolute;
 	height: 100vh;
@@ -367,7 +401,7 @@ h1 {
 }
 
 #info {
-	transition: opacity 0.6s linear;
+	transition: opacity 0.4s linear;
 	background: rgba(250, 231, 162, 0.8);
 	border: 2px solid #321e33;
 	border-radius: 1em;
@@ -389,6 +423,28 @@ h1 {
 
 #info>* {
 	margin: 1em;
+}
+
+#close {
+	height: 1em;
+	width: 1em;
+	padding: 1em;
+	margin: 0 0 -3em auto;
+	cursor: pointer;
+}
+
+#close::before, #close::after {
+	content: "";
+	display: block;
+	position: absolute;
+	width: 1em;
+	border-top: 3px solid currentColor;
+}
+#close::before {
+	transform: translateY(0.5em) rotate(45deg);
+}
+#close::after {
+	transform: translateY(0.5em) rotate(-45deg);
 }
 
 #counter {
@@ -415,31 +471,30 @@ h1 {
 </head>
 
 <body>
-	<h1 id="scroll" style="opacity: 0;">Scroll</h1>
-	<div id="flock">
+	<div id="flock" tabindex="0">
 		<!-- preload buncho and buncho2 -->
 		<div class="birb"></div>
 		<div class="birb two"></div>
 	</div>
 	<div id="info" hidden>
-		<div class="details">
-			<h1>flock</h1>
-			<p>An <del>evening</del> weekend project providing infinite&nbsp;<a href="https://en.wikipedia.org/wiki/Java_sparrow">bunchos</a>.</p>
-			<p>Illustration by <a href="https://www.jeanyoung.me/">Jean</a>.</p>
-			<p>Rest by <a href="https://andrewirino.com">me</a>.</p>
-			<p><a href="https://github.com/drewtato/flock">Source</a>.</p>
-		</div>
+		<div id="close" tabindex="0"></div>
+		<h1>flock</h1>
+		<p>A weekend project providing infinite&nbsp;<a href="https://en.wikipedia.org/wiki/Java_sparrow">bunchos</a>.</p>
+		<p>Illustration by <a href="https://www.jeanyoung.me/">Jean</a>.</p>
+		<p>Rest by <a href="https://andrewirino.com">me</a>.</p>
+		<p><a href="https://github.com/drewtato/flock">Source</a>.</p>
 		<p class="counterItems">
 			<span class="counterLine"><span id="counter">0</span> bunchos have flown&nbsp;by.</span>
 			<br>
-			<input type="checkbox" name="pin" id="pin"><label for="pin">always show</label>
+			<input type="checkbox" name="pin" id="pin"><label for="pin" tabindex="0">always show</label>
 			<br>
-			<input type="checkbox" name="save" id="save"><label for="save">save bunchos</label>
+			<input type="checkbox" name="save" id="save"><label for="save" tabindex="0">save bunchos</label>
 		</p>
-		<div class="details">
+		<p>
 			<a href="#" class="small" onclick="clearBuncho()">clear counter</a>
-		</div>
+		</p>
 	</div>
+	<h1 id="scroll" style="opacity: 0;">Scroll</h1>
 </body>
 
 </html>
