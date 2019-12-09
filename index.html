@@ -307,6 +307,10 @@ a {
 	color: inherit;
 }
 
+a:visited {
+	color: #865b58;
+}
+
 a:hover {
 	color: #000;
 }
@@ -417,12 +421,20 @@ h1 {
 	opacity: 0;
 }
 
+#info.justCount:not(.show) {
+	z-index: 0;
+}
+
 #info.show {
 	opacity: 1;
 }
 
 #info>* {
 	margin: 1em;
+}
+
+#info>h1 {
+	margin: 0.8em 1em 0;
 }
 
 #close {
@@ -466,35 +478,78 @@ h1 {
 	align-self: flex-end;
 }
 
+.counterItems {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+	overflow: visible;
+}
+
+#info.show .counterLine {
+	margin-bottom: 0.2em;
+}
+
+.hasTooltip {
+	position: relative;
+	display: flex;
+	justify-items: center;
+	justify-content: center;
+	width: max-content;
+}
+
+.hasTooltip:hover .tooltip {
+	display: inline;
+}
+
+.tooltip {
+	box-sizing: border-box;
+	font-size: 0.8em;
+	position: absolute;
+	bottom: 100%;
+	right: -4.5em;
+	width: 9em;
+	display: none;
+	background: rgba(50, 30, 51, 0.8);
+	color:rgb(255, 240, 187);
+	border-radius: 0.5em;
+	padding: 0.5em;
+	z-index: 10;
+}
+
 	</style>
 	<link href="https://fonts.googleapis.com/css?family=Courgette|Kaushan+Script&display=swap" rel="stylesheet">
 </head>
 
 <body>
-	<div id="flock" tabindex="0">
-		<!-- preload buncho and buncho2 -->
-		<div class="birb"></div>
-		<div class="birb two"></div>
-	</div>
-	<div id="info" hidden>
-		<div id="close" tabindex="0"></div>
-		<h1>flock</h1>
-		<p>A weekend project providing infinite&nbsp;<a href="https://en.wikipedia.org/wiki/Java_sparrow">bunchos</a>.</p>
-		<p>Illustration by <a href="https://www.jeanyoung.me/">Jean</a>.</p>
-		<p>Rest by <a href="https://andrewirino.com">me</a>.</p>
-		<p><a href="https://github.com/drewtato/flock">Source</a>.</p>
-		<p class="counterItems">
-			<span class="counterLine"><span id="counter">0</span> bunchos have flown&nbsp;by.</span>
-			<br>
-			<input type="checkbox" name="pin" id="pin"><label for="pin" tabindex="0">always show</label>
-			<br>
-			<input type="checkbox" name="save" id="save"><label for="save" tabindex="0">save bunchos</label>
-		</p>
-		<p>
-			<a href="#" class="small" onclick="clearBuncho()">clear counter</a>
-		</p>
-	</div>
-	<h1 id="scroll" style="opacity: 0;">Scroll</h1>
+    <div id="flock" tabindex="0">
+        <!-- preload buncho and buncho2 -->
+        <div class="birb"></div>
+        <div class="birb two"></div>
+    </div>
+    <div id="info" hidden>
+        <div id="close" tabindex="0"></div>
+        <h1>flock</h1>
+        <p>A weekend project providing infinite&nbsp;<a href="https://en.wikipedia.org/wiki/Java_sparrow">bunchos</a>.</p>
+        <p>Illustration by <a href="https://www.jeanyoung.me/">Jean</a>.</p>
+        <p>Rest by <a href="https://andrewirino.com">me</a>.</p>
+        <p><a href="https://github.com/drewtato/flock">Source</a>.</p>
+        <div class="counterItems">
+            <div class="counterLine">
+				<span id="counter">0</span> bunchos have flown&nbsp;by.
+            </div>
+            <div class="hasTooltip">
+                <input type="checkbox" name="pin" id="pin"><label for="pin" tabindex="0">always show*</label><span class="tooltip">saves a cookie to your browser</span>
+            </div>
+            <div class="hasTooltip">
+                <input type="checkbox" name="save" id="save"><label for="save" tabindex="0">save bunchos*</label><span class="tooltip">saves a cookie to your browser</span>
+            </div>
+        </div>
+        <p>
+            <a href="#" class="small" onclick="clearBuncho()">clear counter</a>
+        </p>
+    </div>
+    <h1 id="scroll" style="opacity: 0;">Scroll</h1>
 </body>
 
 </html>
