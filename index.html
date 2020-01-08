@@ -2,90 +2,90 @@
 <html lang="en" prefix="og: http://ogp.me/ns#">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>flock 🕊</title>
-    <meta name="description" content="An infinite supply of bunchos.">
-    <meta name="theme-color" content="#331d32">
-    <meta property="og:title" content="flock 🕊">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://andrewirino.com/flock/img/background.jpg">
-    <meta property="og:image:alt" content="many bunchos flying in front of clouds">
-    <meta property="og:url" content="https://andrewirino.com/flock/">
-    <meta property="og:description" content="An infinite supply of bunchos.">
-    <meta property="og:locale" content="en_US">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:alt" content="many bunchos flying in front of clouds">
-    <script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>flock 🕊</title>
+	<meta name="description" content="An infinite supply of bunchos.">
+	<meta name="theme-color" content="#331d32">
+	<meta property="og:title" content="flock 🕊">
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="https://andrewirino.com/flock/img/background.jpg">
+	<meta property="og:image:alt" content="many bunchos flying in front of clouds">
+	<meta property="og:url" content="https://andrewirino.com/flock/">
+	<meta property="og:description" content="An infinite supply of bunchos.">
+	<meta property="og:locale" content="en_US">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image:alt" content="many bunchos flying in front of clouds">
+	<script>
 
 // Cookie framework by Mozilla
 // https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie/Simple_document.cookie_framework
 // Licensed under GPL v3 or later http://www.gnu.org/licenses/gpl-3.0-standalone.html
 var docCookies = {
-    getItem: function(sKey) {
-        if (!sKey) {
-            return null;
-        }
-        return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
-    },
-    setItem: function(sKey, sValue, vEnd, sPath, sDomain, bSecure) {
-        if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) {
-            return false;
-        }
-        var sExpires = "";
-        if (vEnd) {
-            switch (vEnd.constructor) {
-                case Number:
-                    sExpires = vEnd === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + vEnd;
-                    break;
-                case String:
-                    sExpires = "; expires=" + vEnd;
-                    break;
-                case Date:
-                    sExpires = "; expires=" + vEnd.toUTCString();
-                    break;
-            }
-        }
-        document.cookie = encodeURIComponent(sKey) + "=" + encodeURIComponent(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
-        return true;
-    },
-    removeItem: function(sKey, sPath, sDomain) {
-        if (!this.hasItem(sKey)) {
-            return false;
-        }
-        document.cookie = encodeURIComponent(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "");
-        return true;
-    },
-    hasItem: function(sKey) {
-        if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) {
-            return false;
-        }
-        return (new RegExp("(?:^|;\\s*)" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
-    },
-    keys: function() {
-        var aKeys = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, "").split(/\s*(?:\=[^;]*)?;\s*/);
-        for (var nLen = aKeys.length, nIdx = 0; nIdx < nLen; nIdx++) {
-            aKeys[nIdx] = decodeURIComponent(aKeys[nIdx]);
-        }
-        return aKeys;
-    }
+	getItem: function(sKey) {
+		if (!sKey) {
+			return null;
+		}
+		return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
+	},
+	setItem: function(sKey, sValue, vEnd, sPath, sDomain, bSecure) {
+		if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) {
+			return false;
+		}
+		var sExpires = "";
+		if (vEnd) {
+			switch (vEnd.constructor) {
+				case Number:
+					sExpires = vEnd === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + vEnd;
+					break;
+				case String:
+					sExpires = "; expires=" + vEnd;
+					break;
+				case Date:
+					sExpires = "; expires=" + vEnd.toUTCString();
+					break;
+			}
+		}
+		document.cookie = encodeURIComponent(sKey) + "=" + encodeURIComponent(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
+		return true;
+	},
+	removeItem: function(sKey, sPath, sDomain) {
+		if (!this.hasItem(sKey)) {
+			return false;
+		}
+		document.cookie = encodeURIComponent(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "");
+		return true;
+	},
+	hasItem: function(sKey) {
+		if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) {
+			return false;
+		}
+		return (new RegExp("(?:^|;\\s*)" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
+	},
+	keys: function() {
+		var aKeys = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, "").split(/\s*(?:\=[^;]*)?;\s*/);
+		for (var nLen = aKeys.length, nIdx = 0; nIdx < nLen; nIdx++) {
+			aKeys[nIdx] = decodeURIComponent(aKeys[nIdx]);
+		}
+		return aKeys;
+	}
 };
 
 function id(idString) {
-    return document.getElementById(idString);
+	return document.getElementById(idString);
 }
 
 function frame(callback) {
-    return window.requestAnimationFrame(callback);
+	return window.requestAnimationFrame(callback);
 }
 
 Element.prototype.prop = function (property, value) {
-    return this.style.setProperty(property, value);
+	return this.style.setProperty(property, value);
 }
 
 function rand() {
-    return Math.random();
+	return Math.random();
 }
 
 let birb = document.createElement('div');
@@ -94,199 +94,199 @@ let counter = 0;
 let queued = 0;
 
 function spawnBirbHandler() {
-    // A dynamic throttle
-    // makes floor(sqrt(n)) birds where n is number of wheel/touchmove events since last frame.
-    if (queued == 0) {
-        queued += 1
-        frame(() => {
-            let normalizedQueued = Math.floor(Math.sqrt(queued));
-            queued = 0;
-            addBuncho(normalizedQueued);
-            while (normalizedQueued-- > 0) {
-                spawnBirb();
-            }
-        });
-    } else {
-        queued += 1;
-    }
+	// A dynamic throttle
+	// makes floor(sqrt(n)) birds where n is number of wheel/touchmove events since last frame.
+	if (queued == 0) {
+		queued += 1
+		frame(() => {
+			let normalizedQueued = Math.floor(Math.sqrt(queued));
+			queued = 0;
+			addBuncho(normalizedQueued);
+			while (normalizedQueued-- > 0) {
+				spawnBirb();
+			}
+		});
+	} else {
+		queued += 1;
+	}
 }
 
 function spawnBirb(top = Math.floor(rand() * 140 - 20)) {
-    let flock = id('flock');
-    let b = birb.cloneNode(true);
-    if (rand() > 0.75) {
-        b.classList.add('two');
-    }
+	let flock = id('flock');
+	let b = birb.cloneNode(true);
+	if (rand() > 0.75) {
+		b.classList.add('two');
+	}
 
-    b.prop('--top', top + 'vh');
-    b.prop('--left', -Math.floor(rand() * 100) + 'px');
-    b.prop('--end', Math.floor(rand() * 800 - 600) + 'px');
-    b.prop('--speed', rand() * 2 + 6 + 's');
+	b.prop('--top', top + 'vh');
+	b.prop('--left', -Math.floor(rand() * 100) + 'px');
+	b.prop('--end', Math.floor(rand() * 800 - 600) + 'px');
+	b.prop('--speed', rand() * 2 + 6 + 's');
 
-    let flaps = rand() * 100 + 400;
-    b.prop('--flap', flaps + 'ms');
-    b.prop('--delay', -rand() * flaps + 'ms');
+	let flaps = rand() * 100 + 400;
+	b.prop('--flap', flaps + 'ms');
+	b.prop('--delay', -rand() * flaps + 'ms');
 
-    flock.append(b);
+	flock.append(b);
 
-    b.addEventListener('animationend', () => flock.removeChild(b));
+	b.addEventListener('animationend', () => flock.removeChild(b));
 }
 
 function sleep(ms) {
-    return new Promise(resolve => {
-        setTimeout(resolve, ms);
-    });
+	return new Promise(resolve => {
+		setTimeout(resolve, ms);
+	});
 }
 
 function removeScroll() {
-    let flock = id('flock');
-    flock.removeEventListener('wheel', removeScroll);
-    flock.removeEventListener('touchmove', removeScroll);
-    flock.removeEventListener('keydown', removeScrollKey);
-    let scroll = id('scroll');
-    scroll.prop('opacity', 0);
-    scroll.addEventListener('transitionend', () => document.body.removeChild(scroll));
+	let flock = id('flock');
+	flock.removeEventListener('wheel', removeScroll);
+	flock.removeEventListener('touchmove', removeScroll);
+	flock.removeEventListener('keydown', removeScrollKey);
+	let scroll = id('scroll');
+	scroll.prop('opacity', 0);
+	scroll.addEventListener('transitionend', () => document.body.removeChild(scroll));
 }
 function removeScrollKey(e) {
-    if (e.code.startsWith('Arrow')) {
-        removeScroll();
-    }
+	if (e.code.startsWith('Arrow')) {
+		removeScroll();
+	}
 }
 
 function toggleInfo() {
-    let info = id('info')
-    if (info.hidden) {
-        info.hidden = false;
-    } else {
-        id('flock').focus();
-    }
-    
-    // Transition doesn't work if opacity changes on the same frame as hidden = false
-    // I think hidden elements don't get transitions
-    frame(() => {
-        frame(() => info.classList.toggle('show'))
-    });
+	let info = id('info')
+	if (info.hidden) {
+		info.hidden = false;
+	} else {
+		id('flock').focus();
+	}
+	
+	// Transition doesn't work if opacity changes on the same frame as hidden = false
+	// I think hidden elements don't get transitions
+	frame(() => {
+		frame(() => info.classList.toggle('show'))
+	});
 }
 
 function afterToggleInfo() {
-    let info = id('info');
-    if (!info.classList.contains('show') && !info.classList.contains('justCount')) {
-        info.hidden = true;
-    }
+	let info = id('info');
+	if (!info.classList.contains('show') && !info.classList.contains('justCount')) {
+		info.hidden = true;
+	}
 }
 
 function addBuncho(num) {
-    counter += num;
-    let countElem = id('counter');
-    countElem.innerHTML = String(counter);
-    if (id('save').checked) {
-        docCookies.setItem('bunchos', String(counter), Infinity);
-    }
+	counter += num;
+	let countElem = id('counter');
+	countElem.innerHTML = String(counter);
+	if (id('save').checked) {
+		docCookies.setItem('bunchos', String(counter), Infinity);
+	}
 }
 
 function clearBuncho() {
-    counter = 0;
-    addBuncho(0);
+	counter = 0;
+	addBuncho(0);
 }
 
 function checkBunchoCookie() {
-    if (!id('save').checked) {
-        docCookies.removeItem('bunchos');
-    } else {
-        docCookies.setItem('bunchos', String(counter), Infinity);
-    }
+	if (!id('save').checked) {
+		docCookies.removeItem('bunchos');
+	} else {
+		docCookies.setItem('bunchos', String(counter), Infinity);
+	}
 }
 
 function checkPin() {
-    let pinned = id('pin').checked;
-    if (pinned) {
-        id('info').classList.add('justCount');
-        docCookies.setItem('alwaysShow', true, Infinity);
-    } else {
-        id('info').classList.remove('justCount');
-        docCookies.removeItem('alwaysShow');
-    }
+	let pinned = id('pin').checked;
+	if (pinned) {
+		id('info').classList.add('justCount');
+		docCookies.setItem('alwaysShow', true, Infinity);
+	} else {
+		id('info').classList.remove('justCount');
+		docCookies.removeItem('alwaysShow');
+	}
 }
 
 function inputKey(e, callback) {
-    if (e.code === 'Space' || e.code === 'Enter') {
-        callback();
-    }
+	if (e.code === 'Space' || e.code === 'Enter') {
+		callback();
+	}
 }
 
 async function main() {
-    let savedBunchos = docCookies.getItem('bunchos');
-    if (savedBunchos !== null) {
-        id('save').checked = true;
-        savedBunchos = Number(savedBunchos);
-        if (savedBunchos > counter) {
-            counter = savedBunchos;
-        }
-    } else {
-        id('save').checked = false;
-    }
-    
-    let alwaysShow =  docCookies.getItem('alwaysShow');
-    if (alwaysShow !== null) {
-        id('pin').checked = true;
-        id('info').classList.add(['justCount']);
-        id('info').hidden = false;
-    } else {
-        id('pin').checked = false;
-    }
+	let savedBunchos = docCookies.getItem('bunchos');
+	if (savedBunchos !== null) {
+		id('save').checked = true;
+		savedBunchos = Number(savedBunchos);
+		if (savedBunchos > counter) {
+			counter = savedBunchos;
+		}
+	} else {
+		id('save').checked = false;
+	}
+	
+	let alwaysShow =  docCookies.getItem('alwaysShow');
+	if (alwaysShow !== null) {
+		id('pin').checked = true;
+		id('info').classList.add(['justCount']);
+		id('info').hidden = false;
+	} else {
+		id('pin').checked = false;
+	}
 
-    let flock = id('flock');
-    flock.addEventListener('wheel', spawnBirbHandler);
-    flock.addEventListener('touchmove', spawnBirbHandler);
-    flock.addEventListener('keydown', (e) => {
-        if (e.code.startsWith('Arrow')) {
-            spawnBirbHandler();
-        } else {
-            inputKey(e, toggleInfo);
-        }
-    });
-    flock.addEventListener('click', toggleInfo);
-    id('close').addEventListener('click', toggleInfo);
-    id('close').addEventListener('keydown', (e) => inputKey(e, toggleInfo));
-    id('info').addEventListener('transitionend', afterToggleInfo);
-    id('save').addEventListener('input', checkBunchoCookie);
-    id('pin').addEventListener('input', checkPin);
-    for (const l of document.querySelectorAll('input[type="checkbox"]+label')) {
-        l.addEventListener('keydown', (e) => inputKey(
-            e,
-            () => id(l.getAttribute('for')).click()
-        ));
-    }
+	let flock = id('flock');
+	flock.addEventListener('wheel', spawnBirbHandler);
+	flock.addEventListener('touchmove', spawnBirbHandler);
+	flock.addEventListener('keydown', (e) => {
+		if (e.code.startsWith('Arrow')) {
+			spawnBirbHandler();
+		} else {
+			inputKey(e, toggleInfo);
+		}
+	});
+	flock.addEventListener('click', toggleInfo);
+	id('close').addEventListener('click', toggleInfo);
+	id('close').addEventListener('keydown', (e) => inputKey(e, toggleInfo));
+	id('info').addEventListener('transitionend', afterToggleInfo);
+	id('save').addEventListener('input', checkBunchoCookie);
+	id('pin').addEventListener('input', checkPin);
+	for (const l of document.querySelectorAll('input[type="checkbox"]+label')) {
+		l.addEventListener('keydown', (e) => inputKey(
+			e,
+			() => id(l.getAttribute('for')).click()
+		));
+	}
 
-    await sleep(1000);
-    spawnBirb(Math.floor(rand() * 5 + 25));
-    addBuncho(1);
-    await sleep(50);
-    spawnBirb(Math.floor(rand() * 5 + 30));
-    addBuncho(1);
-    await sleep(30);
-    spawnBirb(Math.floor(rand() * 5 + 40));
-    addBuncho(1);
+	await sleep(1000);
+	spawnBirb(Math.floor(rand() * 5 + 25));
+	addBuncho(1);
+	await sleep(50);
+	spawnBirb(Math.floor(rand() * 5 + 30));
+	addBuncho(1);
+	await sleep(30);
+	spawnBirb(Math.floor(rand() * 5 + 40));
+	addBuncho(1);
 
-    id('scroll').removeAttribute('style');
-    await sleep(2000);
+	id('scroll').removeAttribute('style');
+	await sleep(2000);
 
-    flock.addEventListener('wheel', removeScroll);
-    flock.addEventListener('touchmove', removeScroll);
-    flock.addEventListener('keydown', removeScrollKey);
+	flock.addEventListener('wheel', removeScroll);
+	flock.addEventListener('touchmove', removeScroll);
+	flock.addEventListener('keydown', removeScrollKey);
 }
 
 window.addEventListener('load', main);
 
-    </script>
-    <style>
+	</script>
+	<style>
 
 @font-face {
-    font-family: 'Courgette';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: local('Courgette Regular'), local('Courgette-Regular'), url('font/courgette/Courgette-Regular.woff2') format('woff2');
+	font-family: 'Courgette';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: local('Courgette Regular'), local('Courgette-Regular'), url('font/courgette/Courgette-Regular.woff2') format('woff2');
 }
 
 @font-face {
@@ -298,41 +298,41 @@ window.addEventListener('load', main);
 }
 
 body {
-    height: 100vh;
-    width: 100vw;
-    margin: 0;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Courgette', cursive;
-    font-size: 1.4em;
-    color: #5c4140;
-    background-image: url('img/clouds2.jpg');
-    background-size: cover;
-    background-position: center;
+	height: 100vh;
+	width: 100vw;
+	margin: 0;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Courgette', cursive;
+	font-size: 1.4em;
+	color: #5c4140;
+	background-image: url('img/clouds2.jpg');
+	background-size: cover;
+	background-position: center;
 }
 
 @media screen and (max-aspect-ratio: 1/1) {
-    body {
-        background-image: url('img/clouds3.jpg');
-    }
+	body {
+		background-image: url('img/clouds3.jpg');
+	}
 }
 
 a {
-    color: inherit;
+	color: inherit;
 }
 
 a:visited {
-    color: #865b58;
+	color: #865b58;
 }
 
 a:hover {
-    color: #000;
+	color: #000;
 }
 
 input[type=checkbox] {
-    display: none;
+	display: none;
 }
 
 input[type="checkbox"] + label::before {
@@ -358,186 +358,186 @@ label {
 }
 
 .birb {
-    background-image: url('img/buncho.png');
-    background-size: cover;
-    background-repeat: no-repeat;
+	background-image: url('img/buncho.png');
+	background-size: cover;
+	background-repeat: no-repeat;
 
-    height: 250px;
-    width: 250px;
-    margin-left: -250px;
-    position: absolute;
-    top: var(--top);
-    left: var(--left);
+	height: 250px;
+	width: 250px;
+	margin-left: -250px;
+	position: absolute;
+	top: var(--top);
+	left: var(--left);
 
-    animation:
-        fly var(--speed) linear forwards,
-        flap var(--flap) var(--delay) steps(4) infinite
+	animation:
+		fly var(--speed) linear forwards,
+		flap var(--flap) var(--delay) steps(4) infinite
 }
 
 .birb.two {
-    background-image: url('img/buncho2.png');
+	background-image: url('img/buncho2.png');
 }
 
 @keyframes flap {
-    100% {
-        background-position: calc(-250px * 4);
-    }
+	100% {
+		background-position: calc(-250px * 4);
+	}
 }
 
 @keyframes fly {
-    from {
-        transform: translateX(0vw) translateY(0px);
-    }
+	from {
+		transform: translateX(0vw) translateY(0px);
+	}
 
-    to {
-        transform: translateX(calc(100vw + 2000px * 2)) translateY(var(--end));
-    }
+	to {
+		transform: translateX(calc(100vw + 2000px * 2)) translateY(var(--end));
+	}
 }
 
 h1 {
-    font-family: 'Kaushan Script', cursive;
-    font-size: 3em;
-    font-weight: inherit;
-    color: #814340;
-    transition: opacity 0.6s linear;
-    opacity: 1;
+	font-family: 'Kaushan Script', cursive;
+	font-size: 3em;
+	font-weight: inherit;
+	color: #814340;
+	transition: opacity 0.6s linear;
+	opacity: 1;
 }
 
 #scroll {
-    position: absolute;
-    z-index: 1;
+	position: absolute;
+	z-index: 1;
 }
 
 #info.show ~ #scroll {
-    display: none;
+	display: none;
 }
 
 #flock {
-    position: absolute;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    z-index: 2;
+	position: absolute;
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+	z-index: 2;
 }
 
 #info {
-    transition: opacity 0.4s linear;
-    background: rgba(250, 231, 162, 0.8);
-    border: 2px solid #321e33;
-    border-radius: 1em;
-    margin: 1em;
-    max-width: 22em;
-    max-height: calc(100vh - 2em - 4px);
-    overflow: auto;
-    text-align: center;
-    z-index: 3;
+	transition: opacity 0.4s linear;
+	background: rgba(250, 231, 162, 0.8);
+	border: 2px solid #321e33;
+	border-radius: 1em;
+	margin: 1em;
+	max-width: 22em;
+	max-height: calc(100vh - 2em - 4px);
+	overflow: auto;
+	text-align: center;
+	z-index: 3;
 }
 
 #info:not(.justCount) {
-    opacity: 0;
+	opacity: 0;
 }
 
 #info.justCount:not(.show) {
-    z-index: 0;
+	z-index: 0;
 }
 
 #info.show {
-    opacity: 1;
+	opacity: 1;
 }
 
 #info>* {
-    margin: 1em;
+	margin: 1em;
 }
 
 #info>h1 {
-    margin: 0.8em 1em 0;
+	margin: 0.8em 1em 0;
 }
 
 #close {
-    height: 1em;
-    width: 1em;
-    padding: 1em;
-    margin: 0 0 -3em auto;
-    cursor: pointer;
+	height: 1em;
+	width: 1em;
+	padding: 1em;
+	margin: 0 0 -3em auto;
+	cursor: pointer;
 }
 
 #close::before, #close::after {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 1em;
-    border-top: 3px solid currentColor;
+	content: "";
+	display: block;
+	position: absolute;
+	width: 1em;
+	border-top: 3px solid currentColor;
 }
 #close::before {
-    transform: translateY(0.5em) rotate(45deg);
+	transform: translateY(0.5em) rotate(45deg);
 }
 #close::after {
-    transform: translateY(0.5em) rotate(-45deg);
+	transform: translateY(0.5em) rotate(-45deg);
 }
 
 #counter {
-    /* Doesn't actually work in this font */
-    font-feature-settings: "tnum";
-    font-weight: bold;
+	/* Doesn't actually work in this font */
+	font-feature-settings: "tnum";
+	font-weight: bold;
 }
 
 .small {
-    font-size: 0.6em;
+	font-size: 0.6em;
 }
 
 #info.justCount:not(.show)>:not(.counterItems),
 #info.justCount:not(.show)>.counterItems>:not(.counterLine) {
-    display: none;
+	display: none;
 }
 
 #info.justCount:not(.show) {
-    align-self: flex-end;
+	align-self: flex-end;
 }
 
 .counterItems {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-content: center;
-    overflow: visible;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+	overflow: visible;
 }
 
 #info.show .counterLine {
-    margin-bottom: 0.2em;
+	margin-bottom: 0.2em;
 }
 #info:not(.justCount):not(.show) .counterLine {
-    margin-bottom: 0.2em;
+	margin-bottom: 0.2em;
 }
 
-    </style>
-    <!-- <link href="https://fonts.googleapis.com/css?family=Courgette|Kaushan+Script&display=swap" rel="stylesheet"> -->
+	</style>
+	<!-- <link href="https://fonts.googleapis.com/css?family=Courgette|Kaushan+Script&display=swap" rel="stylesheet"> -->
 </head>
 
 <body>
-    <div id="flock" tabindex="0">
-        <!-- preload buncho and buncho2 -->
-        <div class="birb"></div>
-        <div class="birb two"></div>
-    </div>
-    <div id="info" hidden>
-        <div id="close" tabindex="0"></div>
-        <h1>flock</h1>
-        <p>A weekend project providing infinite&nbsp;<a href="https://en.wikipedia.org/wiki/Java_sparrow">bunchos</a>.</p>
-        <p>Illustration by <a href="https://www.jeanyoung.me/">Jean</a>.</p>
-        <p>Rest by <a href="https://andrewirino.com">me</a>.</p>
-        <p><a href="https://github.com/drewtato/flock">Source</a>.</p>
-        <div class="counterItems">
-            <div class="counterLine">
-                <span id="counter">0</span> bunchos have flown&nbsp;by.
-            </div>
-            <input type="checkbox" name="pin" id="pin"><label for="pin" tabindex="0">always show</label>
-            <input type="checkbox" name="save" id="save"><label for="save" tabindex="0">save bunchos</label>
-        </div>
-        <p>
-            <a href="#" class="small" onclick="clearBuncho()">clear counter</a>
-        </p>
-    </div>
-    <h1 id="scroll" style="opacity: 0;">Scroll</h1>
+	<div id="flock" tabindex="0">
+		<!-- preload buncho and buncho2 -->
+		<div class="birb"></div>
+		<div class="birb two"></div>
+	</div>
+	<div id="info" hidden>
+		<div id="close" tabindex="0"></div>
+		<h1>flock</h1>
+		<p>A weekend project providing infinite&nbsp;<a href="https://en.wikipedia.org/wiki/Java_sparrow">bunchos</a>.</p>
+		<p>Illustration by <a href="https://www.jeanyoung.me/">Jean</a>.</p>
+		<p>Rest by <a href="https://andrewirino.com">me</a>.</p>
+		<p><a href="https://github.com/drewtato/flock">Source</a>.</p>
+		<div class="counterItems">
+			<div class="counterLine">
+				<span id="counter">0</span> bunchos have flown&nbsp;by.
+			</div>
+			<input type="checkbox" name="pin" id="pin"><label for="pin" tabindex="0">always show</label>
+			<input type="checkbox" name="save" id="save"><label for="save" tabindex="0">save bunchos</label>
+		</div>
+		<p>
+			<a href="#" class="small" onclick="clearBuncho()">clear counter</a>
+		</p>
+	</div>
+	<h1 id="scroll" style="opacity: 0;">Scroll</h1>
 </body>
 
 </html>
