@@ -111,7 +111,7 @@ function spawnBirbHandler() {
 	}
 }
 
-function spawnBirb(top = Math.floor(rand() * 140 - 20)) {
+function spawnBirb(top = Math.floor(rand() * 100)) {
 	let flock = id('flock');
 	let b = birb.cloneNode(true);
 	if (rand() > 0.75) {
@@ -180,7 +180,7 @@ function addBuncho(num) {
 	let countElem = id('counter');
 	countElem.innerHTML = String(counter);
 	if (id('save').checked) {
-		docCookies.setItem('bunchos', String(counter), Infinity);
+		docCookies.setItem('bunchos', String(counter), Infinity, "/");
 	}
 }
 
@@ -193,7 +193,7 @@ function checkBunchoCookie() {
 	if (!id('save').checked) {
 		docCookies.removeItem('bunchos');
 	} else {
-		docCookies.setItem('bunchos', String(counter), Infinity);
+		docCookies.setItem('bunchos', String(counter), Infinity, "/");
 	}
 }
 
@@ -201,7 +201,7 @@ function checkPin() {
 	let pinned = id('pin').checked;
 	if (pinned) {
 		id('info').classList.add('justCount');
-		docCookies.setItem('alwaysShow', true, Infinity);
+		docCookies.setItem('alwaysShow', true, Infinity, "/");
 	} else {
 		id('info').classList.remove('justCount');
 		docCookies.removeItem('alwaysShow');
@@ -223,7 +223,7 @@ async function main() {
 			counter = savedBunchos;
 		}
 	} else {
-		id('save').checked = false;
+		id('save').checked = true;
 	}
 	
 	let alwaysShow =  docCookies.getItem('alwaysShow');
@@ -366,7 +366,7 @@ label {
 	width: 250px;
 	margin-left: -250px;
 	position: absolute;
-	top: var(--top);
+	top: calc(var(--top) - 125px);
 	left: var(--left);
 
 	animation:
