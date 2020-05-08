@@ -111,7 +111,7 @@ function spawnBirbHandler() {
 	}
 }
 
-function spawnBirb(top = Math.floor(rand() * 140 - 20)) {
+function spawnBirb(top = Math.floor(rand() * 100)) {
 	let flock = id('flock');
 	let b = birb.cloneNode(true);
 	if (rand() > 0.75) {
@@ -366,7 +366,7 @@ label {
 	width: 250px;
 	margin-left: -250px;
 	position: absolute;
-	top: var(--top);
+	top: calc(var(--top) - 125px);
 	left: var(--left);
 
 	animation:
