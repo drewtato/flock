@@ -24,13 +24,13 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie/Simple_document.cookie_framework
 // Licensed under GPL v3 or later http://www.gnu.org/licenses/gpl-3.0-standalone.html
 var docCookies = {
-	getItem: function(sKey) {
+	getItem: function (sKey) {
 		if (!sKey) {
 			return null;
 		}
 		return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
 	},
-	setItem: function(sKey, sValue, vEnd, sPath, sDomain, bSecure) {
+	setItem: function (sKey, sValue, vEnd, sPath, sDomain, bSecure) {
 		if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) {
 			return false;
 		}
@@ -51,20 +51,20 @@ var docCookies = {
 		document.cookie = encodeURIComponent(sKey) + "=" + encodeURIComponent(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "") + ";SameSite=Lax";
 		return true;
 	},
-	removeItem: function(sKey, sPath, sDomain) {
+	removeItem: function (sKey, sPath, sDomain) {
 		if (!this.hasItem(sKey)) {
 			return false;
 		}
 		document.cookie = encodeURIComponent(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "");
 		return true;
 	},
-	hasItem: function(sKey) {
+	hasItem: function (sKey) {
 		if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) {
 			return false;
 		}
 		return (new RegExp("(?:^|;\\s*)" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
 	},
-	keys: function() {
+	keys: function () {
 		var aKeys = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, "").split(/\s*(?:\=[^;]*)?;\s*/);
 		for (var nLen = aKeys.length, nIdx = 0; nIdx < nLen; nIdx++) {
 			aKeys[nIdx] = decodeURIComponent(aKeys[nIdx]);
@@ -102,6 +102,7 @@ function spawnBirbHandler() {
 		frame(() => {
 			let normalizedQueued = Math.floor(Math.sqrt(queued));
 			queued = 0;
+			delta = 0;
 			addBuncho(normalizedQueued);
 			while (normalizedQueued-- > 0) {
 				spawnBirb();
@@ -161,7 +162,7 @@ function toggleInfo() {
 	} else {
 		id('flock').focus();
 	}
-	
+
 	// Transition doesn't work if opacity changes on the same frame as hidden = false
 	// I think hidden elements don't get transitions
 	frame(() => {
@@ -226,8 +227,8 @@ async function main() {
 	} else {
 		id('save').checked = true;
 	}
-	
-	let alwaysShow =  docCookies.getItem('alwaysShow');
+
+	let alwaysShow = docCookies.getItem('alwaysShow');
 	if (alwaysShow !== null) {
 		id('pin').checked = true;
 		id('info').classList.add(['justCount']);
@@ -281,7 +282,6 @@ window.addEventListener('load', main);
 
 	</script>
 	<style>
-
 @font-face {
 	font-family: 'Courgette';
 	font-style: normal;
@@ -291,11 +291,11 @@ window.addEventListener('load', main);
 }
 
 @font-face {
-  font-family: 'Kaushan Script';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Kaushan Script'), local('KaushanScript-Regular'), url('font/kaushanscript/KaushanScript-Regular.woff2') format('woff2');
+	font-family: 'Kaushan Script';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: local('Kaushan Script'), local('KaushanScript-Regular'), url('font/kaushanscript/KaushanScript-Regular.woff2') format('woff2');
 }
 
 body {
@@ -336,26 +336,26 @@ input[type=checkbox] {
 	display: none;
 }
 
-input[type="checkbox"] + label::before {
-  font-size: 0.9em;
-  content: "\00a0";
-  box-sizing: border-box;
-  height: 1.5em;
-  width: 1.5em;
-  border: 2px solid #5c4140;
-  margin: 0 0.4em;
-  border-radius: 30%;
-  display: inline-block;
-  line-height: 1.4;
+input[type="checkbox"]+label::before {
+	font-size: 0.9em;
+	content: "\00a0";
+	box-sizing: border-box;
+	height: 1.5em;
+	width: 1.5em;
+	border: 2px solid #5c4140;
+	margin: 0 0.4em;
+	border-radius: 30%;
+	display: inline-block;
+	line-height: 1.4;
 }
 
-input[type="checkbox"]:checked + label::before {
-  content: "✔";
+input[type="checkbox"]:checked+label::before {
+	content: "✔";
 }
 
 label {
-  line-height: 1.8;
-  cursor: pointer;
+	line-height: 1.8;
+	cursor: pointer;
 }
 
 .birb {
@@ -409,7 +409,7 @@ h1 {
 	z-index: 1;
 }
 
-#info.show ~ #scroll {
+#info.show~#scroll {
 	display: none;
 }
 
@@ -462,16 +462,19 @@ h1 {
 	cursor: pointer;
 }
 
-#close::before, #close::after {
+#close::before,
+#close::after {
 	content: "";
 	display: block;
 	position: absolute;
 	width: 1em;
 	border-top: 3px solid currentColor;
 }
+
 #close::before {
 	transform: translateY(0.5em) rotate(45deg);
 }
+
 #close::after {
 	transform: translateY(0.5em) rotate(-45deg);
 }
@@ -506,10 +509,10 @@ h1 {
 #info.show .counterLine {
 	margin-bottom: 0.2em;
 }
+
 #info:not(.justCount):not(.show) .counterLine {
 	margin-bottom: 0.2em;
 }
-
 	</style>
 	<!-- <link href="https://fonts.googleapis.com/css?family=Courgette|Kaushan+Script&display=swap" rel="stylesheet"> -->
 </head>
@@ -523,7 +526,8 @@ h1 {
 	<div id="info" hidden>
 		<div id="close" tabindex="0"></div>
 		<h1>flock</h1>
-		<p>A weekend project providing infinite&nbsp;<a href="https://en.wikipedia.org/wiki/Java_sparrow">bunchos</a>.</p>
+		<p>A weekend project providing infinite&nbsp;<a href="https://en.wikipedia.org/wiki/Java_sparrow">bunchos</a>.
+		</p>
 		<p>Illustration by <a href="https://www.jeanyoung.me/">Jean</a>.</p>
 		<p>Rest by <a href="https://andrewirino.com">me</a>.</p>
 		<p><a href="https://github.com/drewtato/flock">Source</a>.</p>
